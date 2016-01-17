@@ -1,0 +1,19 @@
+group 'JDBCExecutor'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    runtime files('libs/derbyclient.jar', 'libs/derby.jar')
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+mainClassName = 'com.bugworm.jdbcexecutor.JdbcExecutor'

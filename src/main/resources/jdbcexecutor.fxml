@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bugworm.jdbcexecutor.AppController">
+   <children>
+      <AnchorPane>
+         <children>
+            <HBox style="-fx-background-color: BLUE;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#addNewTab" prefHeight="25.0" prefWidth="126.0" text="New Tab" />
+                  <TextField fx:id="url" prefHeight="25.0" prefWidth="412.0" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="user" prefHeight="25.0" prefWidth="123.0" />
+                  <TextField fx:id="pass" prefHeight="25.0" prefWidth="142.0" />
+               </children>
+               <opaqueInsets>
+                  <Insets left="4.0" right="4.0" />
+               </opaqueInsets>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane>
+         <children>
+            <TabPane fx:id="tabPane" prefHeight="576.0" prefWidth="800.0" style="-fx-background-color: #AAAAAA;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <tabs>
+                <Tab text="Query#1" />
+              </tabs>
+            </TabPane>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
