@@ -14,7 +14,6 @@ public class DbConnection{
     private static Connection connection = null;
 
     public static void close(){
-        System.out.println("Close.");
         try{
             connection.close();
         }catch(Exception e){

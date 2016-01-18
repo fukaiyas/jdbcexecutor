@@ -26,6 +26,7 @@ public class AppController implements Initializable{
         url.textProperty().addListener(e -> change());
         user.textProperty().addListener(e -> change());
         pass.textProperty().addListener(e -> change());
+        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
     }
 
     public void addNewTab() throws IOException{
