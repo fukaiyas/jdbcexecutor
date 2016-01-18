@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 
 import java.io.FileInputStream;
@@ -17,18 +18,7 @@ public class JdbcExecutor extends Application{
         Parent root = loader.load(
                 JdbcExecutor.class.getResourceAsStream("/jdbcexecutor.fxml"));
         primaryStage.setScene(new Scene(root));
-        AppController controller = loader.getController();
-        controller.tabPane.getTabs().set(0, AppController.createTab("Query#1"));
 
-        Properties prop = new Properties();
-        try{
-            prop.load(new FileInputStream("db.properties"));
-            controller.url.setText(prop.getProperty("url"));
-            controller.user.setText(prop.getProperty("user"));
-            controller.pass.setText(prop.getProperty("pass"));
-        }catch(Exception e){
-            //無い場合は放置
-        }
         primaryStage.setOnCloseRequest(e -> DbConnection.close());
         primaryStage.show();
     }

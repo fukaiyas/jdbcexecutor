@@ -7,8 +7,10 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class AppController implements Initializable{
@@ -22,10 +24,22 @@ public class AppController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
+        Properties prop = new Properties();
+        try{
+            prop.load(new FileInputStream("db.properties"));
+            url.setText(prop.getProperty("url"));
+            user.setText(prop.getProperty("user"));
+            pass.setText(prop.getProperty("pass"));
+        }catch(Exception e){
+            //無い場合は放置
+        }
+
         url.textProperty().addListener(e -> change());
         user.textProperty().addListener(e -> change());
         pass.textProperty().addListener(e -> change());
+
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
+        tabPane.getTabs().set(0, AppController.createTab("Query#1"));
     }
 
     public void addNewTab() throws IOException{
@@ -40,9 +54,14 @@ public class AppController implements Initializable{
         DbConnection.pass = pass.getText();
     }
 
-    public static Tab createTab(String name) throws IOException{
-        FXMLLoader tabloader = new FXMLLoader();
-        Node node = tabloader.load(JdbcExecutor.class.getResourceAsStream("/tab.fxml"));
-        return new Tab(name, node);
+    public static Tab createTab(String name){
+        FXMLLoader loader = new FXMLLoader();
+        try{
+            Node node = loader.load(
+                    AppController.class.getResourceAsStream("/tab.fxml"));
+            return new Tab(name, node);
+        }catch(IOException e){
+            throw new RuntimeException("Fail to load tab.fxml.", e);
+        }
     }
 }
