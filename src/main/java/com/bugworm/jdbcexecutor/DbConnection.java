@@ -37,7 +37,7 @@ public class DbConnection{
         ResultSetMetaData meta = rs.getMetaData();
         int columnCount = meta.getColumnCount();
         while(rs.next()){
-            LinkedHashMap map = new LinkedHashMap();
+            LinkedHashMap<String, Object> map = new LinkedHashMap<>();
             for(int i = 1; i <= columnCount; i++){
                 String name = meta.getColumnName(i);
                 Object value = rs.getObject(i);

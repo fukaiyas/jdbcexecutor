@@ -21,7 +21,7 @@ public class TabController{
                 for(LinkedHashMap<String, Object> rs : list){
                     StringBuilder sb = new StringBuilder();
                     for(Map.Entry<String, Object> entry : rs.entrySet()){
-                        sb.append(entry.getValue() + "\t");
+                        sb.append(entry.getValue()).append("\t");
                     }
                     addResult(sb.toString());
                 }
