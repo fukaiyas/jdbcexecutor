@@ -1,13 +1,12 @@
 package com.bugworm.jdbcexecutor;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.stream.Stream;
 
 public class TabController implements Initializable{
 
@@ -39,49 +38,40 @@ public class TabController implements Initializable{
 
         }catch(Exception e){
             e.printStackTrace();
-            addResult(e.getMessage());
-            addResult("");
+            addResult(e.getMessage(), "");
             try{
                 DbConnection.rollback();
                 addResult("Rollback.");
             }catch(SQLException sqlEx){
                 sqlEx.printStackTrace();
-                addResult(sqlEx.getMessage());
-                addResult("");
-                addResult("Fail to rollback.");
+                addResult(sqlEx.getMessage(), "", "Fail to rollback.");
             }
-            addResult("  ---------------------------------------------------------------");
         }
+        addResult("---------------------------------------------------------------");
     }
 
     public void executeQuery(String singleQuery)throws SQLException{
 
         List<LinkedHashMap<String, Object>> list = DbConnection.executeQuery(singleQuery);
-        for(LinkedHashMap<String, Object> rs : list){
+        list.stream().forEach(rs -> {
             StringBuilder sb = new StringBuilder();
-            for(Map.Entry<String, Object> entry : rs.entrySet()){
-                sb.append(entry.getValue()).append("\t");
-            }
+            rs.entrySet().stream().forEach(entry -> sb.append(entry.getValue()).append(("\t")));
             addResult(sb.toString());
-        }
-        addResult("");
-        addResult(new Date() + ":" + list.size() + "件");
-        addResult("");
+        });
+        addResult("", new Date() + " [" + list.size() + "件]", "");
     }
 
     public void execute(String singleQuery)throws SQLException{
 
         int num = DbConnection.executeUpdate(singleQuery);
-        addResult(new Date() + ":" + num + "件");
-        addResult("");
+        addResult("", new Date() + " [" + num + "件]", "");
     }
 
     public void commit(){
         try{
             DbConnection.commit();
         }catch(Exception e){
-            addResult(e.getMessage());
-            addResult("");
+            addResult(e.getMessage(), "");
         }
     }
 
@@ -89,12 +79,11 @@ public class TabController implements Initializable{
         try{
             DbConnection.rollback();
         }catch(Exception e){
-            addResult(e.getMessage());
-            addResult("");
+            addResult(e.getMessage(), "");
         }
     }
 
-    public void addResult(String text){
-        result.appendText(text + "\n");
+    public void addResult(String... text){
+        Stream.of(text).forEach(t -> result.appendText(t + "\n"));
     }
 }
