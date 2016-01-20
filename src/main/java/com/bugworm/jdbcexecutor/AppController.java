@@ -24,6 +24,11 @@ public class AppController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
+
+        url.textProperty().addListener(e -> change());
+        user.textProperty().addListener(e -> change());
+        pass.textProperty().addListener(e -> change());
+
         Properties prop = new Properties();
         try{
             prop.load(new FileInputStream("db.properties"));
@@ -31,12 +36,9 @@ public class AppController implements Initializable{
             user.setText(prop.getProperty("user"));
             pass.setText(prop.getProperty("pass"));
         }catch(Exception e){
+            e.printStackTrace();
             //無い場合は放置
         }
-
-        url.textProperty().addListener(e -> change());
-        user.textProperty().addListener(e -> change());
-        pass.textProperty().addListener(e -> change());
 
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
         tabPane.getTabs().set(0, AppController.createTab("Query#1"));
