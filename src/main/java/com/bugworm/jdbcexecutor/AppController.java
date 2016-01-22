@@ -61,7 +61,9 @@ public class AppController implements Initializable{
         try{
             Node node = loader.load(
                     AppController.class.getResourceAsStream("/tab.fxml"));
-            return new Tab(name, node);
+            Tab tab = new Tab(name);
+            tab.setContent(node);
+            return tab;
         }catch(IOException e){
             throw new RuntimeException("Fail to load tab.fxml.", e);
         }
