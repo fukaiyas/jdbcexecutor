@@ -23,12 +23,12 @@ public class TabController implements Initializable{
             for(String singleQuery : query.getText().split(";")){
                 String lowerCase = singleQuery.trim().toLowerCase();
 
-                if(lowerCase.startsWith("select")){
+                if(lowerCase.trim().startsWith("select")){
                     executeQuery(singleQuery);
 
-                }else if(lowerCase.startsWith("update") ||
-                        lowerCase.startsWith("insert") ||
-                        lowerCase.startsWith("delete")){
+                }else if(lowerCase.trim().startsWith("update") ||
+                        lowerCase.trim().startsWith("insert") ||
+                        lowerCase.trim().startsWith("delete")){
                     execute(singleQuery);
 
                 }else if(!lowerCase.trim().equals("")){
